@@ -11,7 +11,7 @@ export default function Head() {
     }, []);
 
     function handleDialogConfirm() {
-        window.location.replace('/config?goodbye=true');
+        window.location.replace('/auth/config?goodbye=true');
     }
 
     return (

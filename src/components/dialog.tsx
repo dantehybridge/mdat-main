@@ -11,7 +11,7 @@ export default function Dialog({ open, onConfirm, onDiscard, children }: DialogP
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-60 z-50 backdrop-blur-sm">
+    <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm" style={{ backgroundColor: "rgba(243, 244, 246, 0.7)" }}>
       <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full text-center space-y-5">
         {children}
 
