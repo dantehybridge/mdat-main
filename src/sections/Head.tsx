@@ -13,8 +13,7 @@ export default function Head() {
         <h1 className="text-xl font-semibold">Welcome, {username || "User"}</h1>
         <button
             onClick={() => {
-            console.log("Logout clicked");
-            // Redirect to Entra logout URL when ready
+                window.location.replace("/auth/logout");
             }}
             className="bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-100 transition"
         >
