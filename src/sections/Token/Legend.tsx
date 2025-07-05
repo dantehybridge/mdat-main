@@ -1,13 +1,20 @@
 import React from "react";
 
 interface LegendProps {
-  role: string;
+  roles: string[];
 }
 
-export default function Legend({ role }: LegendProps) {
+export default function Legend({ roles }: LegendProps) {
   return (
-    <div className="bg-yellow-100 text-yellow-800 px-4 py-3 rounded text-sm">
-      As a <span className="font-semibold">{role}</span>, you don't have enough clearance.
+    <div className="p-4 bg-yellow-50 border border-yellow-400 rounded">
+      <p className="font-semibold mb-2">Restricted roles:</p>
+      <ul className="list-disc list-inside space-y-1">
+        {roles.map((role) => (
+          <li key={role} className="text-red-600">
+            {role}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

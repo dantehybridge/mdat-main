@@ -25,19 +25,28 @@ export default function Home() {
     }
   }, []);
 
-	const allowedRoles: string[] = (import.meta.env.VITE_ROLES || "")
-		.split(",")
-		.map((r: string) => r.trim())
-		.filter(Boolean);
+  const allowedRoles: string[] = (import.meta.env.VITE_ROLES || "")
+    .split(",")
+    .map((r: string) => r.trim())
+    .filter(Boolean);
 
-  const isRestricted = roles.every((r) => !allowedRoles.includes(r));
+  const restrictedRoles = roles.filter((r) => !allowedRoles.includes(r));
+  const hasRestriction = restrictedRoles.length > 0;
 
   return (
     <div className="bg-white rounded shadow p-6 space-y-4">
-      <Field label="ID Token" token={iToken} cypher={isRestricted ? "true" : undefined} />
-      <Field label="Access Token" token={aToken} cypher={isRestricted ? "true" : undefined} />
+      <Field
+        label="ID Token"
+        token={iToken}
+        cypher={hasRestriction ? "true" : undefined}
+      />
+      <Field
+        label="Access Token"
+        token={aToken}
+        cypher={hasRestriction ? "true" : undefined}
+      />
 
-      {isRestricted && <Legend role={roles.find((r) => !allowedRoles.includes(r)) || "unknown"} />}
+      {hasRestriction && <Legend roles={restrictedRoles} />}
     </div>
   );
 }
