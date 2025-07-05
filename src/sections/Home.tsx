@@ -30,23 +30,18 @@ export default function Home() {
     .map((r: string) => r.trim())
     .filter(Boolean);
 
+  // Get restricted roles (not allowed)
   const restrictedRoles = roles.filter((r) => !allowedRoles.includes(r));
-  const hasRestriction = restrictedRoles.length > 0;
+
+  // If all roles are restricted, mask tokens and show Legend
+  const isRestricted = restrictedRoles.length > 0;
 
   return (
     <div className="bg-white rounded shadow p-6 space-y-4">
-      <Field
-        label="ID Token"
-        token={iToken}
-        cypher={hasRestriction ? "true" : undefined}
-      />
-      <Field
-        label="Access Token"
-        token={aToken}
-        cypher={hasRestriction ? "true" : undefined}
-      />
+      <Field label="ID Token" token={iToken} cypher={isRestricted ? "true" : undefined} />
+      <Field label="Access Token" token={aToken} cypher={isRestricted ? "true" : undefined} />
 
-      {hasRestriction && <Legend roles={restrictedRoles} />}
+      {isRestricted && <Legend roles={restrictedRoles} />}
     </div>
   );
 }

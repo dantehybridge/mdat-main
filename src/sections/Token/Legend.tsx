@@ -6,15 +6,18 @@ interface LegendProps {
 
 export default function Legend({ roles }: LegendProps) {
   return (
-    <div className="p-4 bg-yellow-50 border border-yellow-400 rounded">
-      <p className="font-semibold mb-2">Restricted roles:</p>
-      <ul className="list-disc list-inside space-y-1">
-        {roles.map((role) => (
-          <li key={role} className="text-red-600">
-            {role}
-          </li>
-        ))}
-      </ul>
+    <div className="bg-yellow-100 text-yellow-800 px-4 py-3 rounded text-sm flex flex-wrap items-center gap-1">
+      <span>As a&nbsp;</span>
+      {roles.map((role, i) => (
+        <span
+          key={role}
+          className="bg-yellow-300 text-yellow-900 font-semibold px-2 py-0.5 rounded-full whitespace-nowrap"
+        >
+          {role}
+          {i < roles.length - 1 ? "," : ""}
+        </span>
+      ))}
+      <span>&nbsp;, you don't have enough clearance.</span>
     </div>
   );
 }
