@@ -18,6 +18,7 @@ export function useAuth() {
   const [idToken, setIdToken] = useState<string>("");
   const [roles, setRoles] = useState<string[]>([]);
   const [showExpiryDialog, setShowExpiryDialog] = useState<boolean>(false);
+  const [tokensLoaded, setTokensLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     const a = sessionStorage.getItem("a") || "";
@@ -35,6 +36,8 @@ export function useAuth() {
         console.warn("Invalid roles format");
       }
     }
+
+    setTokensLoaded(true);
 
     const expiry = getTokenExpiry(a);
     if (!expiry) return;
@@ -102,5 +105,6 @@ export function useAuth() {
     refreshToken,
     logout,
     setShowExpiryDialog,
+    tokensLoaded,
   };
 }

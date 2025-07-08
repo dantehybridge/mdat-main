@@ -1,9 +1,10 @@
-import Head from './sections/Head';
-import Home from './sections/Home';
-import Foot from './sections/Foot';
+import React, { useEffect, useState } from "react";
+import Head from "./sections/Head";
+import Home from "./sections/Home";
+import Foot from "./sections/Foot";
 
-import Dialog from './components/dialog';
-import { useAuth } from './hooks/useAuth';
+import Dialog from "./components/dialog";
+import { useAuth } from "./hooks/useAuth";
 
 export default function App() {
   const {
@@ -12,7 +13,31 @@ export default function App() {
     showExpiryDialog,
     refreshToken,
     logout,
+    tokensLoaded,
   } = useAuth();
+
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    // Simulate loading screen delay of 5 seconds
+    const timer = setTimeout(() => setReady(true), 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!ready) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-lg font-semibold">
+          We're getting everything ready for you...
+        </p>
+      </div>
+    );
+  }
+
+  if (!tokensLoaded) {
+    // Wait until tokens are loaded from sessionStorage
+    return null;
+  }
 
   if (!accessToken || !idToken) {
     window.location.href = "/auth/starts";
