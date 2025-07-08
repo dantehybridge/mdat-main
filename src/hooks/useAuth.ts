@@ -39,11 +39,17 @@ export function useAuth() {
 
     setTokensLoaded(true);
 
-    const expiry = getTokenExpiry(a);
-    if (!expiry) return;
+    // Real expiry time (for reference)
+    const realExpiry = getTokenExpiry(a);
+    if (!realExpiry) return;
+
+    // ----
+    // TESTING OVERRIDE: Simulate expiry 2 minutes from now
+    const testExpiry = Date.now() + 2 * 60 * 1000; // 2 minutes from now
+    // ----
 
     const now = Date.now();
-    const oneMinuteBefore = expiry - 60000;
+    const oneMinuteBefore = testExpiry - 60000; // 1 minute before simulated expiry
 
     if (now >= oneMinuteBefore) {
       setShowExpiryDialog(true);
