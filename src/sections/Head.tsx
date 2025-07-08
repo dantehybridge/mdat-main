@@ -30,6 +30,8 @@ export default function Head() {
                 open={open}
                 onConfirm={handleDialogConfirm}
                 onDiscard={() => setOpen(false)}
+                textConfirm="Yes, log me out"
+                textDiscard="No, take me back"
             >
                 <h2 className="text-2xl font-bold">Wait just a second...</h2>
                 <p className="text-gray-700 text-lg">Are you <span className="font-semibold">sure</span> you want to log out?</p>

@@ -78,25 +78,12 @@ export function useAuth() {
 
   const logout = () => {
     sessionStorage.clear();
-    window.location.href = "/auth/logout";
+    window.location.href = "/auth/config?goodbye=true";
   };
 
-  const refreshToken = async () => {
-    try {
-      const res = await fetch("/auth/refresh", {
-        credentials: "include",
-      });
-      if (!res.ok) throw new Error("Token refresh failed");
-
-      const { accessToken: newToken }: { accessToken: string } =
-        await res.json();
-      sessionStorage.setItem("a", newToken);
-      setAccessToken(newToken);
-      setShowExpiryDialog(false);
-    } catch (err) {
-      console.error("Refresh failed", err);
-      logout();
-    }
+  const reauth = () => {
+    sessionStorage.setItem("post-reauth-return", window.location.pathname);
+    window.location.href = "/auth/config?refresh=true";
   };
 
   return {
@@ -108,7 +95,7 @@ export function useAuth() {
     restrictedRoles,
     showLegend,
     showExpiryDialog,
-    refreshToken,
+    reauth,
     logout,
     setShowExpiryDialog,
     tokensLoaded,

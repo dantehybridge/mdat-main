@@ -4,10 +4,12 @@ interface DialogProps {
   open: boolean;
   onConfirm: () => void;
   onDiscard: () => void;
+  textConfirm: string;
+  textDiscard: string;
   children?: React.ReactNode;
 }
 
-export default function Dialog({ open, onConfirm, onDiscard, children }: DialogProps) {
+export default function Dialog({ open, onConfirm, onDiscard, textConfirm, textDiscard, children }: DialogProps) {
   if (!open) return null;
 
   return (
@@ -20,13 +22,13 @@ export default function Dialog({ open, onConfirm, onDiscard, children }: DialogP
             onClick={onDiscard}
             className="bg-gray-200 text-gray-700 px-5 py-2 rounded-full hover:bg-gray-300 transition"
           >
-            Cancel
+            {textDiscard}
           </button>
           <button
             onClick={onConfirm}
             className="bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 transition font-semibold"
           >
-            Yes, log me out
+            {textConfirm}
           </button>
         </div>
       </div>
